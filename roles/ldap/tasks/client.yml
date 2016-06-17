@@ -1,0 +1,50 @@
+---
+- name: Ensure dependencies are installed
+  yum: name={{ item }} state=installed
+  with_items:
+    - openldap-clients 
+    - nss-pam-ldapd
+    - pam_ldap
+    - openssh-ldap
+    - authconfig
+  when: ansible_os_family == "RedHat"
+
+- name: Install openssl-devel if LDAP server uses SSL
+  yum: name=openssl-devel state=installed
+  when: ldap_server_scheme == "ldaps" and ansible_os_family == "RedHat"
+
+- name: Ensure ldap userinformation is enabled
+  shell: /usr/sbin/authconfig --enableldap --update
+  register: result
+  changed_when: "'OK' in result.stdout"
+  when: ansible_os_family == "RedHat"
+ 
+- name: Ensure mkhomedir module is enabled
+  shell: /usr/sbin/authconfig --enablemkhomedir --update
+  register: result
+  changed_when: "'OK' in result.stdout"
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure shadow password is enabled
+  shell: /usr/sbin/authconfig --enableshadow --update
+  register: result
+  changed_when: "'OK' in result.stdout"
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure local authorization is enabled
+  shell: /usr/sbin/authconfig --enablelocauthorize --update
+  register: result
+  changed_when: "'OK' in result.stdout"
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure ldap server is set
+  shell: /usr/sbin/authconfig --ldapserver={{ ldap_server_uri }} --update
+  register: result
+  changed_when: "'OK' in result.stdout"
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure ldap server basedn is set
+  shell: /usr/sbin/authconfig --ldapbasedn={{ ldap_suffix }} --update
+  register: result
+  changed_when: "'OK' in result.stdout"
+  when: ansible_os_family == "RedHat"

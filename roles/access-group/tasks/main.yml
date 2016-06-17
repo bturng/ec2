@@ -1,0 +1,8 @@
+- name: create the group name
+  group: name={{ group_name }} state=present
+
+- name: deploy the access.conf to the remote server
+  template: src=access.conf.j2 dest=/etc/security/access.conf owner=root group=root mode=0644
+
+- name: deploy the sudoers file to the remote server
+  template: src=sudoers.j2 dest=/etc/sudoers owner=root group=root mode=0644

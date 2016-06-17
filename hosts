@@ -1,0 +1,8 @@
+[local]
+localhost
+
+[ldapserver]
+52.41.95.227 ansible_ssh_private_key_file=~/.ssh/ansible_ec2.pem
+
+[management]
+52.32.8.97 ansible_ssh_private_key_file=~/.ssh/ansible_ec2.pem

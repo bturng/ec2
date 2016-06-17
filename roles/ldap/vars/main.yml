@@ -1,0 +1,32 @@
+---
+# ldap server settings
+ldap_tld: local
+ldap_dc: audsci
+ldap_suffix: "dc={{ ldap_dc }},dc={{ ldap_tld }}"
+ldap_root_username: Directory Manager
+ldap_root_password: password
+ldap_root_dn: "cn={{ ldap_root_username }},{{ ldap_suffix }}"
+ldap_dir: /var/lib/ldap
+
+ldap_sampleuser_name: bturng
+ldap_sampleuser_password: password
+ldap_sampleuser_publickey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpKSGyjSZK+do7BxSdcDBBknDj4lGjvRCRk4SgjjRCPzzfvlQIrClQb+23tU0eySqvxMEf09/Zbzwbxxg69hmG/fwNNkeQHdvkQ+MU6QAkDCKUU2734zcohmxMUSHDwnA5tHNEj6IpMcn+JasoePhztPhzGuKV2UIJEhW+Xg6Y81so040ejkc06QLRYjyctxGz/gKDKltM2Ti5IdvW0PnCoWFGLbspbKbIbjBi8qRSJSfV1B4EeZmlQBVJEvUB+IDJkr6OyYyIBdtosJe8h/NDLVkPcx1p8xRQDYolUAICgl/kczK6YBoka5MW4z6eRda02LZWr/0kVU6hwcgq9j3r root@ansible.audsci.local"
+ldap_sampleuser_uidnumber: 10000
+ldap_sampleuser_gidnumber: 10000
+
+ldap_samplegroup_name: members
+
+ldap_users_ou: people
+ldap_group_ou: groups
+
+openldap_conf_dir: /etc/openldap
+authorizedkeys_command_path: /usr/libexec/openssh/find-ldap-publickey
+sshd_service: sshd
+
+slapd_conf_path: "{{ openldap_conf_dir }}/slapd.conf"
+
+# client side settings
+ldap_server_scheme: ldap
+ldap_server_host: 127.0.0.1
+ldap_server_port: 389
+ldap_server_uri: "{{ ldap_server_scheme }}://{{ ldap_server_host }}:{{ ldap_server_port }}"
