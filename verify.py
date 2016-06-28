@@ -99,11 +99,8 @@ def connect_verify():
     
    # Send the command
     curl_cm = "curl ipecho.net/plain ; echo"
-    print "Executing {}".format(curl_cm)
     stdin , stdout, stderr = c.exec_command(curl_cm)
     ldap_public_ip = stdout.read()
-    print( "Errors")
-    print stderr.read()
     c.close()
     
     print "The public ip address for the ldap server is  %s" %ldap_public_ip
