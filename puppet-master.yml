@@ -12,6 +12,24 @@
       keypair: ansible_ec2
       count: 1
     tasks:
+
+      - name: Create an ELB with application stickiness enabled
+        local_action: ec2_elb_lb
+                      name: "New ELB"
+                      state: present
+                      region: {{ region }}
+                      zones:
+                        - {{ region }}a
+                        - {{ region }}d
+                      listeners:
+                        - protocol: http
+                        - load_balancer_port: 80
+                        - instance_port: 80
+                      stickiness:
+                      type: application
+                      enabled: yes
+                      cookie: SESSIONID
+
       - name: Launch new ldap Instance
         local_action: ec2 
                       group={{ l_security_group }} 
