@@ -1,0 +1,36 @@
+- name: Installing packages with YUM
+  yum:
+    name: "{{ item }}"
+    state: present
+  when: ansible_pkg_mgr == 'yum'
+  with_items:
+    - openssl
+
+
+- name: create private key for host
+  shell: |
+    creates=/etc/pki/tls/private/ssl.key
+    umask 0277 &&
+    openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 \
+      -out /etc/pki/tls/private/ssl.key
+
+- name: self signed certificate
+  shell: |
+    creates=/etc/pki/tls/certs/ssl.crt
+    openssl req -new -key /etc/pki/tls/private/ssl.key \
+      -subj "{{ self_signed_certificate_subject_prefix }}/CN={{ ansible_fqdn }}" \
+      -out /etc/pki/tls/certs/ssl.csr &&
+    openssl x509 -req -in /etc/pki/tls/certs/ssl.csr \
+      -signkey /etc/pki/tls/private/ssl.key \
+      -set_serial {{ self_signed_certificate_serial }} \
+      -days {{ self_signed_certificate_days }} \
+      -out /etc/pki/tls/certs/ssl.crt &&
+    rm /etc/pki/tls/certs/ssl.csr
+
+- name: self signed certificate followed by key
+  shell: |
+    creates=/etc/pki/tls/private/ssl.crt_and_key
+    umask 0277 &&
+    cat /etc/pki/tls/certs/ssl.crt \
+        /etc/pki/tls/private/ssl.key > \
+        /etc/pki/tls/private/ssl.crt_and_key

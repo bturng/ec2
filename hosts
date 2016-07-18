@@ -6,3 +6,7 @@ localhost
 
 [management]
 52.32.8.97 ansible_ssh_private_key_file=~/.ssh/ansible_ec2.pem
+
+[jenkins]
+52.39.76.152 ansible_ssh_private_key_file=~/.ssh/ansible_ec2.pem
+

@@ -1,9 +1,9 @@
 ---
 # Variables that can provide as extra vars
-VPC_NAME: test
-VPC_REGION: us-east-1 # N.Virginia
-VPC_CIDR: "172.25.0.0/16"
-VPC_CLASS_DEFAULT: "172.25"
+VPC_NAME: bryce-vpc
+VPC_REGION: us-west-2 # N.Virginia
+VPC_CIDR: "172.31.0.0/16"
+VPC_CLASS_DEFAULT: "172.31"
 
 # Variables for VPC
 vpc_name: "{{ VPC_NAME }}"

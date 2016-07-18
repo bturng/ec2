@@ -1,0 +1,73 @@
+VPC_NAME: bryce-vpc
+VPC_REGION: us-west-2 # Oregon
+VPC_CIDR: "172.31.0.0/16"
+VPC_CLASS_DEFAULT: "172.31"
+
+#EC2_INTANCE VARIABLES
+EC2_INSTANCE_TYPE: t2.micro
+EC2_KEY_NAME: "anisble_ec2"
+EC2_SECURITY_GROUP_NAME: "webserver-group"
+EC2_COUNT: 1
+EC2_VOLUME_SIZE: 8
+EC2_SUBNET_ID: []
+# Example of EC2_SUBNET_ID
+# EC2_SUBNET_ID:
+#   - "subnet-0c3e0b7b"
+#   - "subnet-bf672ae6"
+AMI_NAME: "ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"
+AMI_OWNER: "099720109477"
+
+# Tags
+ENVIRONMENT: prod 
+SERVER_ROLE: webserver
+
+GITHUB_USERNAME: no
+LOCAL_USER_SSH_KEY: yes
+
+EC2_SECURITY_GROUPS:
+  - name: webserver-sg
+    description: "This sg is a webserver sg"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+
+
+ELB_NAME: "bryce-elb"
+ELB_SUBNET_ID: []
+ELB_PURGE_SUBNETS: no
+ELB_CROSS_AZ_LOAD_BALANCING: yes
+ELB_PING_PROTOCOL: tcp
+ELB_PING_PORT: 80
+ELB_RESPONSE_TIMEOUT: 5
+ELB_INTERVAL: 30
+ELB_UNHEALTHY_THRESHOLD: 2
+ELB_HEALTHY_THRESHOLD: 10
+ELB_CONNECTION_DRAINING_TIMEOUT: 60
+ELB_SECURITY_GROUP_NAME: "webserver-group"
+ELB_STICKINESS_TYPE: "loadbalancer"
+ELB_STICKINESS_ENABLED: no
+ELB_STICKINESS_EXPIRATION: 150
+ELB_LISTENERS:
+  - protocol: http
+    load_balancer_port: 80
+    instance_protocol: http
+    instance_port: 80
+
+RDS_SUBNET_GROUP_NAME: "wordpress_subnet_group"
+RDS_SG_DESCRIPTION: "My Subnet Group for wordpress rds instance"
+RDS_SG_SUBNETS: []
+RDS_MULTI_ZONE_OPTION: no
+RDS_SG_NAME: "worpress_rd_sg"
+RDS_INSTANCE_NAME: "my-wordpress-rds"
+RDS_DB_ENGINE: MySQL
+RDS_DB_SIZE: 5
+RDS_DB_NAME: "rds_worpress"
+RDS_INSTANCE_TYPE: "db.t2.micro"
+RDS_DB_USERNAME: admin
+RDS_DB_PASSWORD: test
+RDS_BACKUP_RETENTION_PERIOD: 0
+RDS_PUBLICLY_ACCESSIBLE: yes
+RDS_WAIT_TIMEOUT: 300
+
