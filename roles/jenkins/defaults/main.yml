@@ -17,8 +17,6 @@ users_list:
   - username: kakhing
     password: password
 
-use_security: true
-
 jenkins_init_changes:
   - {option: "JENKINS_ARGS", value: "--prefix={{ jenkins_url_prefix }}"}
   - {option: "JENKINS_JAVA_OPTIONS", value: "{{ jenkins_java_options }}"}
