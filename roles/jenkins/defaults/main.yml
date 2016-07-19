@@ -4,12 +4,20 @@ jenkins_connection_retries: 60
 jenkins_hostname: localhost
 jenkins_http_port: 8080
 jenkins_jar_location: /opt/jenkins-cli.jar
-jenkins_plugins: []
+jenkins_plugins: [git,subversion,ssh,jira,email-ext,artifactory,cloudbees-bitbucket-branch-source,ansible,puppet]
 jenkins_url_prefix: ""
 jenkins_java_options: "-Djenkins.install.runSetupWizard=false"
 
 jenkins_admin_username: admin
 jenkins_admin_password: admin
+
+users_list:
+  - username: bturng
+    password: World123
+  - username: kakhing
+    password: password
+
+use_security: true
 
 jenkins_init_changes:
   - {option: "JENKINS_ARGS", value: "--prefix={{ jenkins_url_prefix }}"}

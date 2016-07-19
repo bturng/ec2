@@ -49,5 +49,23 @@
     path: /var/lib/jenkins/init.groovy.d/basic-security.groovy
     state: absent
 
+#- name: Configure Jenkins security file.
+#  template:
+#    src: config.xml.j2
+#    dest: /var/lib/jenkins/config.xml
+#  register: security_config
+
+#- name: Immediately restart Jenkins on security config changes.
+#  service: name=jenkins state=restarted
+#  when: security_config.changed
+
+#- name: create a Jenkins users.
+#  command: >
+#    echo 'jenkins.model.Jenkins.instance.securityRealm.createAccount("{{ item.username }}", "{{ item.password }}")' |
+#    java -jar /opt/jenkins-cli.jar -s  http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/ groovy =
+#  with_items:
+#     users_list
+#  register: jenkins_users
+
 # Update Jenkins and install configured plugins.
 - include: plugins.yml
