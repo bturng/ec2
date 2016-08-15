@@ -14,7 +14,7 @@ ansible-aws-vpc-ha-wordpress
 
 Here is the directory structure for my root amazon playbook
 
-hosts
+hosts\n
 puppet-master.yml
 README.md
 roles
