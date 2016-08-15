@@ -33,8 +33,8 @@ verify.sh
 <li>Take the ELB dnsname and register/create dns entry in Route53</li>
 </ul>
 
-<p>roles
-├── access-group
+<p>roles</p>
+<p>├── access-group</p>
 │   ├── tasks
 │   ├── templates
 │   └── vars
