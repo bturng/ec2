@@ -3,9 +3,9 @@ AWS example
 
 These playbooks are configuration files that used to provision AWS instances using Ansible:
 
-This root directory in include roles that will provision a ec2 instance and deploy a fully functional jenkin server and ldap server 
+This root directory in include roles that will provision a ec2 instance and deploy a fully functional jenkin server with ldap server 
 
-verify.py is python script I developed to verify the functionality of ldap server and creation of access-group, please cat virify for more comments
+verify.py is python script I developed to verify the functionality of ldap server and creation of access-group, please cat verify.py for more comments
 
 The following playbooks are found in  ansible galaxy and I modified to fit my need. 
 ansible-aws-roles
