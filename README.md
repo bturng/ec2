@@ -1,6 +1,7 @@
 # ec2
 AWS example
 
+This is just a test
 These playbooks are configuration files that used to provision AWS instances using Ansible:
 
 This root directory in include roles that will provision a ec2 instance and deploy a fully functional jenkin server with ldap server 
