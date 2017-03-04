@@ -1,0 +1,22 @@
+---
+# tasks file for roles/sudo
+- name: Install sudo
+  yum: name=sudo state=present
+  when: ansible_os_family == "RedHat"
+
+- name: Create sudoers.d directory
+  file:
+    path: /etc/sudoers.d
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: deploy sudoers file to {{ ansible_fqdn }} host
+  copy:
+    src: sudoers
+    dest: "/etc/sudoers"
+    mode: 0440
+    owner: root
+    group: root
+    validate: "/usr/sbin/visudo -cf %s"

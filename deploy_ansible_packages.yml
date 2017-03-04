@@ -6,10 +6,12 @@
 
     roles:
       - repo-epel
+      - sudo
       - ntp
       - java
       - git
       - ansible
+   
 
     tasks:
       - name: Ensure the firewall is disabled and will not start on boot.
