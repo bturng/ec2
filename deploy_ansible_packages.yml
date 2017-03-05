@@ -1,7 +1,7 @@
   - name: With the newly provisioned EC2 node configure
-    hosts: ansible-server # This uses the hosts that we put into the in-memory hosts repository with the add_host module.
-    sudo: yes # On EC2 nodes, this is automatically passwordless.
-    remote_user: ec2-user # This is the username for all ubuntu images, rather than root, or something weird.
+    hosts: localhost # This uses the hosts that we put into the in-memory hosts repository with the add_host module.
+    #sudo: yes # On EC2 nodes, this is automatically passwordless.
+    #remote_user: ec2-user # This is the username for all ubuntu images, rather than root, or something weird.
     gather_facts: True  #We need to re-enable this, as we turned it off earlier.
 
     roles:
@@ -11,7 +11,6 @@
       - java
       - git
       - ansible
-   
 
     tasks:
       - name: Ensure the firewall is disabled and will not start on boot.
@@ -25,12 +24,14 @@
           line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
           regexp: "^github\\.com"
 
+      - name: check to see if /etc/ansible/ec2 already exist
+        stat: path=/etc/ansible/ec2
+        register: ec2_dir
+
       - name: clone the repository
         git:
           repo: https://github.com/bturng/ec2.git
           dest: /etc/ansible/ec2
           version: master
-
-      
-
+        when: not ec2_dir.stat.exists
 
