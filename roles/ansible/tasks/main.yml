@@ -4,4 +4,11 @@
   yum:
     name: "ansible"
     state: present
+  when: ansible_distribution == 'CentOS'
+
+- name: Install ansible packages using pio
+  pip:
+    name: "ansible"
+    state: present
+  when: ansible_distribution == 'Amazon'
 

@@ -7,7 +7,7 @@
       instance_type: t2.micro
       hostname: jenkins
       security_group: jenkins
-      image: ami-4728cb27
+      image: ami-f173cc91
       region: us-west-2
       keypair: jenkins 
       count: 1
